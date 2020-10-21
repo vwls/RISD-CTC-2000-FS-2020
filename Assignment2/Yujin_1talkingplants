@@ -1,0 +1,88 @@
+#include <DHT.h>
+#include <DHT_U.h>
+#include <LiquidCrystal.h>
+
+#define DHTPIN 7
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal lcd(12,11,2,3,4,5);
+
+int R = 10;
+int G = 9;
+int B = 8;
+
+void setup() {
+  pinMode(R, OUTPUT);
+  pinMode(G, OUTPUT);
+  pinMode(B, OUTPUT);
+
+lcd.begin(16,2);
+
+Serial.begin(9600);
+dht.begin();
+}
+
+void loop() {
+
+
+  float humi, temp;
+  temp = dht.readTemperature();
+  humi = dht.readHumidity();
+
+  if(isnan(humi) || isnan(temp)){
+    Serial.println("Failed to read from DHT sensor!!");
+    return;
+  }
+
+  //측정된 온도와 습도 출력하기
+
+  lcd.clear();
+  lcd.setCursor (0, 0);
+  lcd.print("T:");
+  lcd.print (temp);
+  lcd.print(" H:");
+  lcd.print (humi);
+  
+
+  lcd.setCursor(0, 1);
+  if (temp >= 22 and humi >= 50) {
+    digitalWrite(R, LOW);
+    digitalWrite(G, LOW);
+    digitalWrite(B, HIGH);
+    lcd.print("I'm so happy!");
+  }
+     else if (temp <= 21 and humi >= 50) {
+    digitalWrite(R, LOW);
+    digitalWrite(G, HIGH);
+    digitalWrite(B, LOW);
+    lcd.print("I'm cold!");
+   }
+   
+  else if (temp >= 22 and humi <= 49) {
+    digitalWrite(R, LOW);
+    digitalWrite(G, HIGH);
+    digitalWrite(B, LOW);
+    lcd.print("I'm thirsty!");
+  }
+
+   
+    else if (temp <=21 and humi <= 49) {
+    digitalWrite(R, HIGH);
+    digitalWrite(G, LOW);
+    digitalWrite(B, LOW);
+    lcd.print("I'm cold&thirsty!"); 
+    
+    }
+    else {
+    digitalWrite(R, HIGH);
+    digitalWrite(G, LOW);
+    digitalWrite(B, LOW);
+    lcd.print("I'm cold&thirsty!"); 
+  }
+
+
+
+  delay(1000);
+  
+}
