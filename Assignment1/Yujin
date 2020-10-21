@@ -1,0 +1,118 @@
+int trig = 3;
+int echo = 2;
+int aled = 13;
+int bled = 12;
+int cled = 11;
+int dled = 10;
+int eled = 9;
+int fled = 8;
+int gled = 7;
+int hled = 6;
+int iled = 5;
+int jled = 4;
+
+
+
+void setup() {
+  Serial.begin(9600);
+  
+  pinMode(trig, OUTPUT);  
+  pinMode(echo, INPUT); 
+  pinMode(aled, OUTPUT);
+  pinMode(bled, OUTPUT);
+  pinMode(cled, OUTPUT);
+  pinMode(dled, OUTPUT);
+  pinMode(eled, OUTPUT);
+  pinMode(fled, OUTPUT);
+  pinMode(gled, OUTPUT);
+  pinMode(hled, OUTPUT);
+  pinMode(iled, OUTPUT);
+  pinMode(jled, OUTPUT);
+}
+
+void loop() {
+  float duration, distance;
+  
+  digitalWrite(trig, HIGH);
+  delay(1);
+  digitalWrite(trig, LOW);
+
+  duration = pulseIn(echo, HIGH);
+
+  distance = ((float)(duration*340) / 10000) / 2;
+
+  Serial.print("distance : ");
+  Serial.print(distance);
+  Serial.println("cm");
+
+  if(distance <=10){
+    digitalWrite(aled, HIGH);
+    digitalWrite(bled, HIGH);
+    digitalWrite(cled, HIGH);
+    digitalWrite(dled, HIGH);
+    digitalWrite(eled, HIGH);
+    digitalWrite(fled, HIGH);
+    digitalWrite(gled, HIGH);
+    digitalWrite(hled, HIGH);
+    digitalWrite(iled, HIGH);
+    digitalWrite(jled, HIGH);
+  }else if(distance <= 15) {
+      digitalWrite(aled, HIGH);
+    digitalWrite(bled, HIGH);
+    digitalWrite(cled, HIGH);
+    digitalWrite(dled, HIGH);
+    digitalWrite(eled, HIGH);
+    digitalWrite(fled, HIGH);
+    digitalWrite(gled, HIGH);
+    digitalWrite(hled, LOW);
+    digitalWrite(iled, LOW);
+    digitalWrite(jled, LOW); 
+  }else if(distance <= 20) {
+    digitalWrite(aled, HIGH);
+    digitalWrite(bled, HIGH);
+    digitalWrite(cled, HIGH);
+    digitalWrite(dled, HIGH);
+    digitalWrite(eled, LOW);
+    digitalWrite(fled, LOW);
+    digitalWrite(gled, LOW);
+    digitalWrite(hled, LOW);
+    digitalWrite(iled, LOW);
+    digitalWrite(jled, LOW); 
+    }else if(distance <= 25) {
+    digitalWrite(aled, HIGH);
+    digitalWrite(bled, HIGH);
+    digitalWrite(cled, LOW);
+    digitalWrite(dled, LOW);
+    digitalWrite(eled, LOW);
+    digitalWrite(fled, LOW);
+    digitalWrite(gled, LOW);
+    digitalWrite(hled, LOW);
+    digitalWrite(iled, LOW);
+    digitalWrite(jled, LOW); 
+    }else if(distance <= 30) {
+    digitalWrite(aled, HIGH);
+    digitalWrite(bled, LOW);
+    digitalWrite(cled, LOW);
+    digitalWrite(dled, LOW);
+    digitalWrite(eled, LOW);
+    digitalWrite(fled, LOW);
+    digitalWrite(gled, LOW);
+    digitalWrite(hled, LOW);
+    digitalWrite(iled, LOW);
+    digitalWrite(jled, LOW); 
+    }else{
+        digitalWrite(aled, LOW);
+    digitalWrite(bled, LOW);
+    digitalWrite(cled, LOW);
+    digitalWrite(dled, LOW);
+    digitalWrite(eled, LOW);
+    digitalWrite(fled, LOW);
+    digitalWrite(gled, LOW);
+    digitalWrite(hled, LOW);
+    digitalWrite(iled, LOW);
+    digitalWrite(jled, LOW); 
+  }
+  
+  
+
+}
